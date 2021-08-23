@@ -4,9 +4,19 @@ import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import * as Location from 'expo-location';
 import WeatherInfo from './components/WeatherInfo'
 import UnitsPicker from './components/UnitsPicker';
+import ReloadIcon from './components/ReloadIcon'
 import {colors} from './utils/index'
-const WEATHER_API_KEY = '5a8b7c6522f316e9ec3113501c1ae78f';
+import REACT_APP_WEATHER_API_KEY from 'react-native-dotenv'
+
+import WeatherDetails from './components/WeatherDetails';
+
+
+
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?'
+
+const teste:string = ( process.env.REACT_APP_WEATHER_API_KEY  as string)
+
+
 
 export default function App() {
 
@@ -16,7 +26,6 @@ export default function App() {
 
 
   useEffect(() => {
-
     load();
   }, [unitsSystem])
 
@@ -35,7 +44,7 @@ export default function App() {
 
       const { latitude, longitude } = location.coords;
 
-      const weatherUrl = `${BASE_WEATHER_URL}lat=${-10.2848}&lon=${-36.5526}&units=${unitsSystem}&appid=${WEATHER_API_KEY}`
+      const weatherUrl = `${BASE_WEATHER_URL}lat=${-10.2848}&lon=${-36.5526}&units=${unitsSystem}&appid=${REACT_APP_WEATHER_API_KEY}`
 
 
       const response = await fetch(weatherUrl)
@@ -59,8 +68,11 @@ export default function App() {
         <StatusBar style="auto" />
         <View style={styles.main}>
           <UnitsPicker unitsSystem={unitsSystem} setUnitsSystem={setUnitsSystem}/>
+          <ReloadIcon load={load} />
           <WeatherInfo currentWeather={currentWeather}> </WeatherInfo>
         </View>
+
+        <WeatherDetails currentWeather={currentWeather} unitsSystem={unitsSystem}/>
 
 
       </View>
