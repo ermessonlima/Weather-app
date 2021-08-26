@@ -15,7 +15,7 @@ export default function WeatherInfo({ currentWeather }: any) {
     const iconUrl = `https://openweathermap.org/img/wn/${icon}@4x.png`
     return (
         <View style={styles.weatherInfo}>
-            <Text>{name}</Text>
+            <Text style={{marginTop:10}}>{name}</Text>
             <Image style={styles.weatherIcon} source={{ uri: iconUrl }} />
             <Text style={styles.textPrimary}>{temp}°</Text>
             <Text style={styles.weatherDescription}>{description }</Text>
